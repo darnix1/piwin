@@ -9,6 +9,7 @@ https://raw.githubusercontent.com/darnix1/piwin/main/Lists/ads.txt
 https://raw.githubusercontent.com/darnix1/piwin/main/Lists/redirect.txt
 https://raw.githubusercontent.com/darnix1/piwin/main/Lists/regex.txt
 https://raw.githubusercontent.com/darnix1/piwin/main/Lists/spam.txt
+https://raw.githubusercontent.com/darnix1/piwin/main/Lists/adsone.txt
 
 ```
 I recommend ```malware```, ```ransomware```, ```coinmining``` and ```adlist``` for everyone.
