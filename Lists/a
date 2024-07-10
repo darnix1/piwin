@@ -1,24 +1,40 @@
 #!/bin/bash
 
-# Descargar la lista M3U
-curl -o peliculas.m3u https://raw.githubusercontent.com/darnix1/piwin/main/Lists/Pel%C3%ADculas.m3u
+# Actualizar el índice de paquetes existentes
+sudo apt update
 
-# Crear carpeta para almacenar las películas
-mkdir -p /media/movies/
+# Instalar paquetes necesarios para permitir a apt usar un repositorio sobre HTTPS
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
 
-# Leer la lista M3U y descargar cada archivo
-while IFS= read -r line; do
-    # Ignorar líneas que no son URLs
-    if [[ $line == http* ]]; then
-        # Obtener el nombre del archivo
-        filename=$(basename "$line")
-        # Descargar el archivo
-        curl -o "/media/movies/$filename" "$line"
-    fi
-done < peliculas.m3u
+# Añadir la clave GPG oficial de Docker
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-# Actualizar la biblioteca de Jellyfin
-# Esto depende de tu configuración de Jellyfin, pero podrías usar la API de Jellyfin para actualizar la biblioteca
-# curl -X POST "http://216.225.193.117:8096/library/refresh" -H "Content-Type: application/json" -d '{"LibraryId":"<Infantiles>"}'
+# Añadir el repositorio de Docker
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-echo "Descarga completa y biblioteca actualizada."
+# Actualizar el índice de paquetes nuevamente
+sudo apt update
+
+# Instalar Docker
+sudo apt install -y docker-ce
+
+# Verificar que Docker esté corriendo
+sudo systemctl status docker
+
+# Descargar la versión más reciente de Docker Compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+# Aplicar permisos ejecutables al binario de Docker Compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+# Verificar la instalación de Docker Compose
+docker-compose --version
+
+# Agregar el usuario actual al grupo docker (opcional)
+sudo usermod -aG docker ${USER}
+
+# Mensaje final
+echo "Instalación de Docker y Docker Compose completada. Por favor, cierra la sesión y vuelve a iniciarla para aplicar los cambios de grupo."
+
+# Verificar instalación de Docker con una imagen de prueba
+docker run hello-world
