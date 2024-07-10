@@ -19,7 +19,7 @@ sudo apt update
 sudo apt install -y docker-ce
 
 # Verificar que Docker esté corriendo
-sudo systemctl status docker
+#sudo systemctl status docker
 
 # Descargar la versión más reciente de Docker Compose
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
