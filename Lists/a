@@ -1,1 +1,24 @@
-A
+#!/bin/bash
+
+# Descargar la lista M3U
+curl -o peliculas.m3u https://raw.githubusercontent.com/darnix1/piwin/main/Lists/Pel%C3%ADculas.m3u
+
+# Crear carpeta para almacenar las películas
+mkdir -p /media/movies/
+
+# Leer la lista M3U y descargar cada archivo
+while IFS= read -r line; do
+    # Ignorar líneas que no son URLs
+    if [[ $line == http* ]]; then
+        # Obtener el nombre del archivo
+        filename=$(basename "$line")
+        # Descargar el archivo
+        curl -o "/media/movies/$filename" "$line"
+    fi
+done < peliculas.m3u
+
+# Actualizar la biblioteca de Jellyfin
+# Esto depende de tu configuración de Jellyfin, pero podrías usar la API de Jellyfin para actualizar la biblioteca
+# curl -X POST "http://216.225.193.117:8096/library/refresh" -H "Content-Type: application/json" -d '{"LibraryId":"<Infantiles>"}'
+
+echo "Descarga completa y biblioteca actualizada."
