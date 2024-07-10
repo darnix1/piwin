@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Actualizar el sistema
+echo "Actualizando el sistema..."
+sudo apt update && sudo apt upgrade -y
+
+# Agregar el repositorio de Jellyfin
+echo "Agregando el repositorio de Jellyfin..."
+wget -O - https://repo.jellyfin.org/jellyfin_team.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/jellyfin.gpg
+echo "deb [signed-by=/usr/share/keyrings/jellyfin.gpg] https://repo.jellyfin.org/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/jellyfin.list
+
+# Instalar Jellyfin
+echo "Instalando Jellyfin..."
+sudo apt update
+sudo apt install jellyfin -y
+
+# Iniciar y habilitar el servicio de Jellyfin
+echo "Iniciando y habilitando el servicio de Jellyfin..."
+sudo systemctl start jellyfin
+sudo systemctl enable jellyfin
+
+# Configurar el firewall
+echo "Configurando el firewall..."
+#sudo ufw allow 8096/tcp
+
+# Mensaje final
+echo "La instalación de Jellyfin se ha completado."
+echo "Puedes acceder a Jellyfin en http://<tu-ip>:8096"
