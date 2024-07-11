@@ -1,6 +1,7 @@
-#EXTVLCOPT:http-user-agent=BrzLRzQgfTrvXYGnfIVrkwb9402QA44LkyZf98xmMznUT
-
 #EXTM3U
+#EXTVLCOPT:http-user-agent=BrzLRzQgfTrvXYGnfIVrkwb9402QA44LkyZf98xmMznUT
+#EXTVLCOPT:network-caching=1000
+#EXTVLCOPT:input-fast-seek=true
 
 #EXTINF:-1 group-title="Movies" tvg-id="Trolls3" tvg-name="Trolls 3: Se Armó La Banda" tvg-country="US" tvg-language="Spanish" tvg-url="https://www.universalpictures.com.mx/tl_files/content/movies/trolls_3/posters/02.jpg" tvg-logo="https://www.universalpictures.com.mx/tl_files/content/movies/trolls_3/posters/02.jpg", Trolls 3 Se Armó La Banda
 http://notabasica.com/612132/Trolls%203%20-%20Se%20Arm%C3%B3%20la%20Banda.mp4
